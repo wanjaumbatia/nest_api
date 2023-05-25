@@ -14,6 +14,7 @@ import { ServicesModule } from './services/services.module';
 import { Service } from './services/entities/service.entity';
 import { AppointmentModule } from './appointment/appointment.module';
 import { Appointment } from './appointment/entities/appointment.entity';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { Appointment } from './appointment/entities/appointment.entity';
       entities: [User, LoginLog, Category, Nurse, Service, Appointment],
       synchronize: true,
     }),
+    PaymentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
