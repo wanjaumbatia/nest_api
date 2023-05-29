@@ -16,11 +16,11 @@ export class AppointmentService {
     private appointmentRepository: Repository<Appointment>,
   ) {}
 
+
   async create(createAppointmentDto: CreateAppointmentDto, loggedInUser: any) {
     const user = await this.userService.findById(loggedInUser.userId);
-    const nurse = await this.nurseService.findOne(
-      createAppointmentDto.nurse_id,
-    );
+    const nurse = await this.nurseService.findOne(createAppointmentDto.nurseId);
+
     const appointment = await this.appointmentRepository.create({
       startTime: createAppointmentDto.start,
       endTime: createAppointmentDto.stop,
@@ -43,13 +43,8 @@ export class AppointmentService {
   }
 
   myAppointments(user: any) {
-    return this.appointmentRepository.find({
-      where: {
-        customer: {
-          id: user.id,
-        },
-      },
-    });
+    console.log(user);
+    return this.userService.getAppointments(+user.id);
   }
 
   findOne(id: number) {

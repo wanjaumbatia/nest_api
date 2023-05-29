@@ -12,6 +12,8 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { LocalAuthGuard } from 'src/auth/local-auth.guard';
 import { AuthService } from 'src/auth/services/auth.service';
 import { RegisterDto } from '../dtos/register.dto';
+import { ForgotPasswordDto } from '../dtos/forgot-password.dto';
+import { VerifyAccountDto } from '../dtos/verify-account.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -27,8 +29,8 @@ export class AuthController {
   }
 
   @Post('register')
-  async registerByEmail(@Body() body: RegisterDto){
-    const user = await this.service.createUser(body); 
+  async registerByEmail(@Body() body: RegisterDto) {
+    const user = await this.service.createUser(body);
     return this.service.login(user);
   }
 
@@ -37,5 +39,15 @@ export class AuthController {
   @Get('user')
   async User(@Request() req): Promise<any> {
     return this.service.getLoggedInUser(req.user.id);
+  }
+
+  @Post('forgot-password')
+  forgotPassword(@Body() data: ForgotPasswordDto) {
+    return this.service.forgotPassword(data.email);
+  }
+
+  @Post('verify-account')
+  verifyAccount(@Body() data: VerifyAccountDto) {
+    console.log(data);
   }
 }

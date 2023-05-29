@@ -23,27 +23,29 @@ const services_module_1 = require("./services/services.module");
 const service_entity_1 = require("./services/entities/service.entity");
 const appointment_module_1 = require("./appointment/appointment.module");
 const appointment_entity_1 = require("./appointment/entities/appointment.entity");
+const payments_module_1 = require("./payments/payments.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            auth_module_1.AuthModule,
             appointment_module_1.AppointmentModule,
             nurses_module_1.NursesModule,
             categories_module_1.CategoriesModule,
             services_module_1.ServicesModule,
-            auth_module_1.AuthModule,
             users_module_1.UsersModule,
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
-                host: 'ls-82e8acd89b2b7ee7a1d83094c0e99a7fb17ac2ce.coxvb9fwz3ty.ap-south-1.rds.amazonaws.com',
+                host: 'localhost',
                 port: 3306,
                 username: 'root',
-                password: 'afyaplug',
-                database: 'afyaplug',
+                password: '',
+                database: 'app',
                 entities: [user_entity_1.User, login_logs_entity_1.LoginLog, category_entity_1.Category, nurse_entity_1.Nurse, service_entity_1.Service, appointment_entity_1.Appointment],
                 synchronize: true,
             }),
+            payments_module_1.PaymentsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

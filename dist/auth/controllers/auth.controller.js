@@ -20,6 +20,8 @@ const jwt_auth_guard_1 = require("../jwt-auth.guard");
 const local_auth_guard_1 = require("../local-auth.guard");
 const auth_service_1 = require("../services/auth.service");
 const register_dto_1 = require("../dtos/register.dto");
+const forgot_password_dto_1 = require("../dtos/forgot-password.dto");
+const verify_account_dto_1 = require("../dtos/verify-account.dto");
 let AuthController = class AuthController {
     constructor(service) {
         this.service = service;
@@ -35,6 +37,12 @@ let AuthController = class AuthController {
     }
     async User(req) {
         return this.service.getLoggedInUser(req.user.id);
+    }
+    forgotPassword(data) {
+        return this.service.forgotPassword(data.email);
+    }
+    verifyAccount(data) {
+        console.log(data);
     }
 };
 __decorate([
@@ -62,6 +70,20 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "User", null);
+__decorate([
+    (0, common_1.Post)('forgot-password'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [forgot_password_dto_1.ForgotPasswordDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "forgotPassword", null);
+__decorate([
+    (0, common_1.Post)('verify-account'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [verify_account_dto_1.VerifyAccountDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "verifyAccount", null);
 AuthController = __decorate([
     (0, swagger_1.ApiTags)('Auth'),
     (0, common_1.Controller)('auth'),

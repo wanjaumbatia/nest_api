@@ -14,6 +14,7 @@ export declare class User {
     password: string;
     enabled: boolean;
     avatarUr: string;
+    otp: string;
     lastIp: string;
     lastLoginDate: Date;
     provider: string;

@@ -27,7 +27,7 @@ let AppointmentService = class AppointmentService {
     }
     async create(createAppointmentDto, loggedInUser) {
         const user = await this.userService.findById(loggedInUser.userId);
-        const nurse = await this.nurseService.findOne(createAppointmentDto.nurse_id);
+        const nurse = await this.nurseService.findOne(createAppointmentDto.nurseId);
         const appointment = await this.appointmentRepository.create({
             startTime: createAppointmentDto.start,
             endTime: createAppointmentDto.stop,
@@ -47,13 +47,8 @@ let AppointmentService = class AppointmentService {
         return `This action returns all appointment`;
     }
     myAppointments(user) {
-        return this.appointmentRepository.find({
-            where: {
-                customer: {
-                    id: user.id,
-                },
-            },
-        });
+        console.log(user);
+        return this.userService.getAppointments(+user.id);
     }
     findOne(id) {
         return `This action returns a #${id} appointment`;

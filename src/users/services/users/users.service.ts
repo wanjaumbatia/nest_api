@@ -1,18 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/users/entities/user.entity';
 import { LoginLog } from 'src/users/entities/login-logs.entity';
 import { LoginLogDto } from 'src/users/dtos/login-log.dto';
+import { sendOtp } from 'src/utils/notifications/sms.utils';
 
 @Injectable()
 export class UsersService {
+  private readonly logger = new Logger(UsersService.name);
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(LoginLog) private loginRepository: Repository<LoginLog>,
   ) {}
-
+  async getAppointments(id: number){
+    console.log(id);
+    return this.userRepository.findOne({
+      where: { id },
+      relations : ['appointments']
+    });
+  }
   async findAll() {
     return this.userRepository.find();
   }
@@ -40,7 +48,7 @@ export class UsersService {
     phone: string,
     password: string,
   ) {
-    const hash = await bcrypt.hash(password, 12);    
+    const hash = await bcrypt.hash(password, 12);
     var x = new User();
     x.name = name;
     x.email = email;
@@ -48,9 +56,16 @@ export class UsersService {
     x.password = hash;
     x.role = 'user';
     x.enabled = true;
-    
-    const user = await this.userRepository.create(x);    
+
+    const user = await this.userRepository.create(x);
     const created_user = await this.userRepository.save(user);
+    const userData = await this.generateOtpToken(user);
+    sendOtp(userData);
     return created_user;
+  }
+
+  async generateOtpToken(user: User) {
+    user.otp = '123456';
+    return this.userRepository.save(user);
   }
 }

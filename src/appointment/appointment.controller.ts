@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   UseGuards,
-  Request,
   Req,
 } from '@nestjs/common';
 import { AppointmentService } from './appointment.service';
@@ -24,8 +23,7 @@ export class AppointmentController {
   constructor(private readonly appointmentService: AppointmentService) {}
 
   @Post()
-  create(@Body() createAppointmentDto: CreateAppointmentDto, @Request() req) {    
-    console.log(createAppointmentDto);
+  create(@Body() createAppointmentDto: CreateAppointmentDto, @Req() req) {    
     return this.appointmentService.create(createAppointmentDto, req.user);
   }
 

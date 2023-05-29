@@ -53,6 +53,9 @@ export class User {
   avatarUr: string;
 
   @Column()
+  otp: string;
+  
+  @Column()
   lastIp: string;
 
   @Column({ type: 'timestamp' })

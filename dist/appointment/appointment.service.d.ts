@@ -11,7 +11,7 @@ export declare class AppointmentService {
     constructor(userService: UsersService, nurseService: NursesService, appointmentRepository: Repository<Appointment>);
     create(createAppointmentDto: CreateAppointmentDto, loggedInUser: any): Promise<Appointment>;
     findAll(): string;
-    myAppointments(user: any): Promise<Appointment[]>;
+    myAppointments(user: any): Promise<import("../users/entities/user.entity").User>;
     findOne(id: number): string;
     update(id: number, updateAppointmentDto: UpdateAppointmentDto): string;
     remove(id: number): string;

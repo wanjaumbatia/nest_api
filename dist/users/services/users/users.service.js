@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var UsersService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
@@ -19,10 +20,19 @@ const typeorm_2 = require("typeorm");
 const bcrypt = require("bcrypt");
 const user_entity_1 = require("../../entities/user.entity");
 const login_logs_entity_1 = require("../../entities/login-logs.entity");
-let UsersService = class UsersService {
+const sms_utils_1 = require("../../../utils/notifications/sms.utils");
+let UsersService = UsersService_1 = class UsersService {
     constructor(userRepository, loginRepository) {
         this.userRepository = userRepository;
         this.loginRepository = loginRepository;
+        this.logger = new common_1.Logger(UsersService_1.name);
+    }
+    async getAppointments(id) {
+        console.log(id);
+        return this.userRepository.findOne({
+            where: { id },
+            relations: ['appointments']
+        });
     }
     async findAll() {
         return this.userRepository.find();
@@ -52,10 +62,16 @@ let UsersService = class UsersService {
         x.enabled = true;
         const user = await this.userRepository.create(x);
         const created_user = await this.userRepository.save(user);
+        const userData = await this.generateOtpToken(user);
+        (0, sms_utils_1.sendOtp)(userData);
         return created_user;
     }
+    async generateOtpToken(user) {
+        user.otp = '123456';
+        return this.userRepository.save(user);
+    }
 };
-UsersService = __decorate([
+UsersService = UsersService_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
     __param(1, (0, typeorm_1.InjectRepository)(login_logs_entity_1.LoginLog)),

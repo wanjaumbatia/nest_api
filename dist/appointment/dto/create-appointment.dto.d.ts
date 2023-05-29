@@ -1,5 +1,5 @@
 export declare class CreateAppointmentDto {
-    nurse_id: number;
+    nurseId: number;
     start: Date;
     stop: Date;
     longitude: number;

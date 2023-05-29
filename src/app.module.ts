@@ -18,19 +18,29 @@ import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
+    AuthModule,
     AppointmentModule,
     NursesModule,
     CategoriesModule,
     ServicesModule,
-    AuthModule,
     UsersModule,
+    // TypeOrmModule.forRoot({
+    //   type: 'mysql',
+    //   host: 'ls-82e8acd89b2b7ee7a1d83094c0e99a7fb17ac2ce.coxvb9fwz3ty.ap-south-1.rds.amazonaws.com',
+    //   port: 3306,
+    //   username: 'root',
+    //   password: 'afyaplug',
+    //   database: 'afyaplug',
+    //   entities: [User, LoginLog, Category, Nurse, Service, Appointment],
+    //   synchronize: true,
+    // }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'ls-82e8acd89b2b7ee7a1d83094c0e99a7fb17ac2ce.coxvb9fwz3ty.ap-south-1.rds.amazonaws.com',
+      host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'afyaplug',
-      database: 'afyaplug',
+      password: '',
+      database: 'app',
       entities: [User, LoginLog, Category, Nurse, Service, Appointment],
       synchronize: true,
     }),

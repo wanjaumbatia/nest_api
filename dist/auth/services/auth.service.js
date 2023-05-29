@@ -15,10 +15,19 @@ const users_service_1 = require("../../users/services/users/users.service");
 const bcrypt = require("bcrypt");
 const jwt_1 = require("@nestjs/jwt");
 const parser = require("ua-parser-js");
+const sms_utils_1 = require("../../utils/notifications/sms.utils");
 let AuthService = class AuthService {
     constructor(usersService, jwtService) {
         this.usersService = usersService;
         this.jwtService = jwtService;
+    }
+    async forgotPassword(email) {
+        const user = await this.usersService.findOne(email);
+        if (!user)
+            throw new common_1.NotFoundException();
+        const userData = await this.usersService.generateOtpToken(user);
+        (0, sms_utils_1.sendOtp)(userData);
+        return userData;
     }
     getLoggedInUser(id) {
         return this.usersService.findById(id);

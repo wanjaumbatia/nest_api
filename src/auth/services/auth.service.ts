@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { UsersService } from 'src/users/services/users/users.service';
@@ -11,6 +12,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LoginLogDto } from '../dtos/login-log.dto';
 import { RegisterDto } from '../dtos/register.dto';
+import { sendOtp } from 'src/utils/notifications/sms.utils';
 
 @Injectable()
 export class AuthService {
@@ -19,10 +21,20 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  async forgotPassword(email: string) {
+    const user = await this.usersService.findOne(email);
+    if (!user) throw new NotFoundException();
+    
+    //generate otp and sent email
+    const userData = await this.usersService.generateOtpToken(user);    
+    sendOtp(userData);
+    return userData;
+  }
+
   getLoggedInUser(id: number) {
     return this.usersService.findById(id);
   }
-  async validateUser(email: string, password: string): Promise<any> {    
+  async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findOne(email);
     if (!user) throw new UnauthorizedException();
 

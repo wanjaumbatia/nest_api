@@ -4,9 +4,11 @@ const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 const helmet_1 = require("helmet");
 const swagger_1 = require("@nestjs/swagger");
+const common_1 = require("@nestjs/common");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.use((0, helmet_1.default)());
+    app.useGlobalPipes(new common_1.ValidationPipe());
     app.enableCors();
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Afya Plug API')

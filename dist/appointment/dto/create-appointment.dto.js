@@ -16,7 +16,7 @@ class CreateAppointmentDto {
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], CreateAppointmentDto.prototype, "nurse_id", void 0);
+], CreateAppointmentDto.prototype, "nurseId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Date)

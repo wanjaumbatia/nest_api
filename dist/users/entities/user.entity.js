@@ -67,6 +67,10 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
+], User.prototype, "otp", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
 ], User.prototype, "lastIp", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'timestamp' }),

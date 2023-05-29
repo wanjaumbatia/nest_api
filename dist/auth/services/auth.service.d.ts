@@ -5,6 +5,7 @@ export declare class AuthService {
     private usersService;
     private jwtService;
     constructor(usersService: UsersService, jwtService: JwtService);
+    forgotPassword(email: string): Promise<import("../../users/entities/user.entity").User>;
     getLoggedInUser(id: number): Promise<import("../../users/entities/user.entity").User>;
     validateUser(email: string, password: string): Promise<any>;
     login(user: any): Promise<{
