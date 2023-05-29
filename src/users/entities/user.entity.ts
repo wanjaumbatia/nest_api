@@ -67,7 +67,7 @@ export class User {
   @Column()
   provider_id: string;
 
-  @OneToMany(() => Appointment, (appointment) => appointment.nurse)
+  @OneToMany(() => Appointment, (appointment) => appointment.customer)
   appointments: Appointment[];
 
   @CreateDateColumn()

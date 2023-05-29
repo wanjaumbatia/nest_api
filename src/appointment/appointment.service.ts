@@ -42,10 +42,15 @@ export class AppointmentService {
   }
 
   myAppointments(user: any) {
-    console.log(user);
     const id = Number(user.userId);
-    console.log(id);
-    return this.userService.getAppointments(+id);
+    return this.appointmentRepository.find({
+      where: {
+        customer: {
+          id: id,
+        },
+      },
+      relations: ['customer', 'nurse'],
+    });
   }
 
   findOne(id: number) {

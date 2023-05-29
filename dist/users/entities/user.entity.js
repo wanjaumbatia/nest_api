@@ -85,7 +85,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "provider_id", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => appointment_entity_1.Appointment, (appointment) => appointment.nurse),
+    (0, typeorm_1.OneToMany)(() => appointment_entity_1.Appointment, (appointment) => appointment.customer),
     __metadata("design:type", Array)
 ], User.prototype, "appointments", void 0);
 __decorate([

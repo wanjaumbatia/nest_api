@@ -47,10 +47,15 @@ let AppointmentService = class AppointmentService {
         return `This action returns all appointment`;
     }
     myAppointments(user) {
-        console.log(user);
         const id = Number(user.userId);
-        console.log(id);
-        return this.userService.getAppointments(+id);
+        return this.appointmentRepository.find({
+            where: {
+                customer: {
+                    id: id,
+                },
+            },
+            relations: ['customer', 'nurse'],
+        });
     }
     findOne(id) {
         return `This action returns a #${id} appointment`;

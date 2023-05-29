@@ -5,7 +5,7 @@ export declare class AppointmentController {
     private readonly appointmentService;
     constructor(appointmentService: AppointmentService);
     create(createAppointmentDto: CreateAppointmentDto, req: any): Promise<import("./entities/appointment.entity").Appointment>;
-    myAppointments(req: any): Promise<import("../users/entities/user.entity").User>;
+    myAppointments(req: any): Promise<import("./entities/appointment.entity").Appointment[]>;
     findOne(id: string): string;
     update(id: string, updateAppointmentDto: UpdateAppointmentDto): string;
     remove(id: string): string;
