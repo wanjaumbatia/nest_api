@@ -48,7 +48,9 @@ let AppointmentService = class AppointmentService {
     }
     myAppointments(user) {
         console.log(user);
-        return this.userService.getAppointments(+user.id);
+        const id = Number(user.userId);
+        console.log(id);
+        return this.userService.getAppointments(+id);
     }
     findOne(id) {
         return `This action returns a #${id} appointment`;

@@ -16,7 +16,6 @@ export class AppointmentService {
     private appointmentRepository: Repository<Appointment>,
   ) {}
 
-
   async create(createAppointmentDto: CreateAppointmentDto, loggedInUser: any) {
     const user = await this.userService.findById(loggedInUser.userId);
     const nurse = await this.nurseService.findOne(createAppointmentDto.nurseId);
@@ -44,7 +43,9 @@ export class AppointmentService {
 
   myAppointments(user: any) {
     console.log(user);
-    return this.userService.getAppointments(+user.id);
+    const id = Number(user.userId);
+    console.log(id);
+    return this.userService.getAppointments(+id);
   }
 
   findOne(id: number) {
