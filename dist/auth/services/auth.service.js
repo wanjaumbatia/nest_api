@@ -29,8 +29,11 @@ let AuthService = class AuthService {
         (0, sms_utils_1.sendOtp)(userData);
         return userData;
     }
-    getLoggedInUser(id) {
-        return this.usersService.findById(id);
+    getLoggedInUser(user) {
+        console.log(user);
+        const userData = Number(user.userId);
+        console.log(userData);
+        return this.usersService.findById(userData);
     }
     async validateUser(email, password) {
         const user = await this.usersService.findOne(email);

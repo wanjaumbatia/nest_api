@@ -38,7 +38,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('user')
   async User(@Request() req): Promise<any> {
-    return this.service.getLoggedInUser(req.user.id);
+    return this.service.getLoggedInUser(req.user);
   }
 
   @Post('forgot-password')

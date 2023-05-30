@@ -31,8 +31,12 @@ export class AuthService {
     return userData;
   }
 
-  getLoggedInUser(id: number) {
-    return this.usersService.findById(id);
+  getLoggedInUser(user: any) {
+    console.log(user);
+    const userData = Number(user.userId);
+    console.log(userData);
+    
+    return this.usersService.findById(userData);
   }
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findOne(email);
