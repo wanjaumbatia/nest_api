@@ -49,7 +49,7 @@ export class NursesService {
         `,
       )
       .orderBy('distance', 'ASC')
-      .limit(10) // Limit the results to 10 nurses
+      .limit(10) // Limit the results to 15 nurses
       .getRawMany();
 
     return closestNurses;
